@@ -48,29 +48,48 @@ class DataFrame():
                 return True
         return False
     
-    def fill_na(self, column, value):
-        for i in self[column]:
-            if i != i or i == "":
-                i = value
+    def fill_nan(self, column, value):
+        for i in range(len(self[column])):
+            if self[column][i] == '':
+                self[column][i] = value
     
     def mean(self, column):
         sum, count = 0, 0
         for i in self[column]:
-            sum += int(i)
-            count +=1
-        return sum/count
+            if i != '':
+                sum = sum + int(i)
+                count = count + 1
+        return round(sum/count, 1)
     
     def median(self, column):
         temp = self[column]
         temp.sort()
         mid = len(temp) // 2
-        return (temp[mid] + temp[~mid]) / 2
+        return round((temp[mid] + temp[~mid]) / 2, 1)
     
     def mode(self, column):
         temp = self[column]
         temp.sort()
         mid = len(temp) // 2
-        return (temp[mid] + temp[~mid]) / 2
+        return round((temp[mid] + temp[~mid]) / 2, 1)
+    
+    def type(self, column):
+        for i in self[column]:
+            if i != '':
+                if not (i.isnumeric()):
+                    return 'Categorical'
+        return 'Numeric'
+    
+    def count_nan(self, column):
+        count = 0
+        for i in self[column]:
+            if i != '':
+                count +=1
+        return count
+    
+    def drop(self, column):
+        self.values.pop(column)
+        self.columns.pop(self.columns.index(column))
     
 # script_path = path.realpath(__file__)
 # dir_path = path.dirname(script_path)
