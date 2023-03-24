@@ -42,13 +42,13 @@ class DataFrame():
     def __setitem__(self, attr: str, value):
         self.values[attr] = value
     
-    def is_nan(self, column):
+    def is_na(self, column):
         for i in self[column]:
             if i != i or i == "":
                 return True
         return False
     
-    def fill_nan(self, column, value):
+    def fill_na(self, column, value):
         for i in self[column]:
             if i != i or i == "":
                 i = value
@@ -72,11 +72,11 @@ class DataFrame():
         mid = len(temp) // 2
         return (temp[mid] + temp[~mid]) / 2
     
-script_path = path.realpath(__file__)
-dir_path = path.dirname(script_path)
-input_dir = path.join(dir_path, 'House_Prices')
-input_path = path.join(input_dir, 'test.csv')
-output_path = path.join(input_dir, 'test_out.csv')
-df = DataFrame.read_csv(input_path)
-df.to_csv(output_path)
+# script_path = path.realpath(__file__)
+# dir_path = path.dirname(script_path)
+# input_dir = path.join(dir_path, 'House_Prices')
+# input_path = path.join(input_dir, 'test.csv')
+# output_path = path.join(input_dir, 'test_out.csv')
+# df = DataFrame.read_csv(input_path)
+# df.to_csv(output_path)
 # print(df.mean('LotArea'))
