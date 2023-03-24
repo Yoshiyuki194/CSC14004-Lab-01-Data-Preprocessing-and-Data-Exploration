@@ -1,11 +1,10 @@
-from csv import DictReader
+from csv import DictReader, DictWriter, QUOTE_MINIMAL
 from os import path
 
 class DataFrame():
     def __init__(self, columns = [], values = {}) -> None:
         self.columns = columns
         self.values = values
-
 
     @staticmethod
     def read_csv(filename):
@@ -23,7 +22,6 @@ class DataFrame():
     def to_csv(self, filename):
         header = self.columns
         lines = []
-        lines.append(header)
         
         for idx, val in enumerate(self.values[header[0]]):
             row = []
@@ -32,9 +30,11 @@ class DataFrame():
                 row.append(self.values[other][idx])
             lines.append(row)
 
-        with open(filename, "w") as file:
-            file.write(str(lines))
-        
+        with open(filename, 'w', newline='') as csvfile:
+            csv_writer = DictWriter(csvfile, header)
+            csv_writer.writeheader()
+            for line in lines:
+                csv_writer.writerow({header[i]: line[i] for i in range(len(header))})
 
     def __getitem__(self, attr: str):
         return self.values[attr]
@@ -72,9 +72,11 @@ class DataFrame():
         mid = len(temp) // 2
         return (temp[mid] + temp[~mid]) / 2
     
-# script_path = path.realpath(__file__)
-# dir_path = path.dirname(script_path)
-# input_dir = path.join(dir_path, 'House_Prices')
-# input_path = path.join(input_dir, 'test.csv')
-# df = DataFrame.read_csv(input_path)
+script_path = path.realpath(__file__)
+dir_path = path.dirname(script_path)
+input_dir = path.join(dir_path, 'House_Prices')
+input_path = path.join(input_dir, 'test.csv')
+output_path = path.join(input_dir, 'test_out.csv')
+df = DataFrame.read_csv(input_path)
+df.to_csv(output_path)
 # print(df.mean('LotArea'))
