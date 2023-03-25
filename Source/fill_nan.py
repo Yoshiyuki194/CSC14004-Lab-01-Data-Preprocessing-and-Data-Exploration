@@ -10,8 +10,7 @@ parser.add_argument('column', type = str, help = "Column to fill NaN")
 parser.add_argument('method', type = str, help = 'Method to fill NaN')
 args = parser.parse_args()
 
-data = df.DataFrame()
-data = data.read_csv(args.input)
+data = df.DataFrame.read_csv(args.input)
 if args.method == "mean":
     if data.type(args.column) == 'Numeric':
         data.fill_nan(args.column, data.mean(args.column))
@@ -30,4 +29,4 @@ elif args.method == 'mode':
 else:
     arg.ArgumentTypeError('Method need to be one of mean, median and mode')
 
-print(data['LotArea'])
+#print(data['LotArea'])
