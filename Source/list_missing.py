@@ -9,8 +9,7 @@ parser.add_argument('--print_data', action = 'store_true', help = "Print column 
 parser.add_argument('--out', type = str, help = "Path to result file", default = "result_list_missing_column.csv", required='--print_data' in sys.argv)
 args = parser.parse_args()
 
-data = df.DataFrame()
-data = data.read_csv(args.input_path)
+data = df.DataFrame.read_csv(args.input_path)
 
 result = []
 for i in data.columns:

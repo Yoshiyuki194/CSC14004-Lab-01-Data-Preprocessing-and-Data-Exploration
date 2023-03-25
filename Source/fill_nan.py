@@ -28,7 +28,5 @@ for i in args.column:
             data.fill_nan(i, data.mode(i))
         else:
             arg.ArgumentTypeError('Data type of ' + i + ' must be categorical to use mode method')
-    else:
-        arg.ArgumentTypeError('Method need to be one of mean, median and mode')
-
+            
 data.to_csv(args.out)
