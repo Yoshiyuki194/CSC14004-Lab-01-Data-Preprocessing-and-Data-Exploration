@@ -114,7 +114,26 @@ class DataFrame():
         for i in range(len(self[column])):
             self[column][i] = round((float(self[column][i]) - mean) / sd, 3)
 
+    def count_row_nan(self):
+        count = 0
+        for i in range(len(self[self.columns[0]])):
+            for j in self.columns:
+                if self[j][i] == '':
+                    count += 1
+                    break
+        return count
     
+    def count_nan_in_row(self, index):
+        count = 0
+        for j in self.columns:
+            if self[j][index] == '':
+                count += 1
+        return count
+    
+    def drop_row(self, index):
+        for j in self.columns:
+            self[j].pop(index)
+
 # script_path = path.realpath(__file__)
 # dir_path = path.dirname(script_path)
 # input_dir = path.join(dir_path, 'House_Prices')
