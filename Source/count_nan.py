@@ -16,4 +16,4 @@ for i in data.columns:
     if data.count_nan(i) > len(data[i]) * args.standard:
         data.drop(i)
 
-data.to_csv()
+data.to_csv(args.out)

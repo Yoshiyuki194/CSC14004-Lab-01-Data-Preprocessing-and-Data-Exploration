@@ -73,6 +73,13 @@ class DataFrame():
         mid = len(temp) // 2
         return round((temp[mid] + temp[~mid]) / 2, 1)
     
+    def sd(self, column):
+        mean = self.mean(column)
+        sd = 0
+        for i in self[column]:
+            sd = sd + (float(i)-mean)
+        return round(sd//2, 1)
+    
     def type(self, column):
         for i in self[column]:
             if i != '':
@@ -90,6 +97,23 @@ class DataFrame():
     def drop(self, column):
         self.values.pop(column)
         self.columns.pop(self.columns.index(column))
+
+    def norm_max_min(self, column):
+        max_value = float(self[column][1])
+        min_value = float(self[column][1])
+        for i in range(len(self[column])):
+            max_value = max(max_value, float(i))
+            min_value = min(min_value, float(i))
+        for i in range(len(self[column])):
+            if self[column][i] != '':
+                self[column][i] = round((float(self[column][i]) - min_value) / (max_value - min_value), 3)
+
+    def norm_Z_score(self, column):
+        mean = self.mean(column)
+        sd = self.sd(column)
+        for i in range(len(self[column])):
+            self[column][i] = round((float(self[column][i]) - mean) / sd, 3)
+
     
 # script_path = path.realpath(__file__)
 # dir_path = path.dirname(script_path)
