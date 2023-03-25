@@ -1,4 +1,4 @@
-from csv import DictReader, DictWriter, QUOTE_MINIMAL
+from csv import DictReader, DictWriter
 from os import path
 
 class DataFrame():
@@ -77,8 +77,8 @@ class DataFrame():
         mean = self.mean(column)
         sd = 0
         for i in self[column]:
-            sd = sd + (float(i)-mean)
-        return round(sd//2, 1)
+            sd += (float(i) - mean) ** 2
+        return round((sd // len(self[column])) ** 0.5, 1)
     
     def type(self, column):
         for i in self[column]:
