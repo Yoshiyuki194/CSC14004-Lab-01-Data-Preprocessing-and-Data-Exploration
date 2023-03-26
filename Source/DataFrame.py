@@ -49,9 +49,12 @@ class DataFrame():
         return False
     
     def fill_nan(self, column, value):
+        count = 0
         for i in range(len(self[column])):
             if self[column][i] == '':
                 self[column][i] = value
+                count += 1
+        return count
     
     def mean(self, column):
         sum, count = 0, 0
@@ -65,13 +68,17 @@ class DataFrame():
         temp = self[column]
         temp.sort()
         mid = len(temp) // 2
-        return round((temp[mid] + temp[~mid]) / 2, 1)
+        return round((float(temp[mid]) + float(temp[~mid])) / 2, 1)
     
     def mode(self, column):
-        temp = self[column]
-        temp.sort()
-        mid = len(temp) // 2
-        return round((temp[mid] + temp[~mid]) / 2, 1)
+        fre = dict()
+        for i in self[column]:
+            if i != '':
+                if i in fre:
+                    fre[i] += 1
+                else:
+                    fre[i] = 1
+        return max(fre, key = fre.get )
     
     def sd(self, column):
         mean = self.mean(column)
@@ -99,8 +106,8 @@ class DataFrame():
         self.columns.pop(self.columns.index(column))
 
     def norm_max_min(self, column):
-        max_value = float(self[column][1])
-        min_value = float(self[column][1])
+        max_value = float(self[column][0])
+        min_value = float(self[column][0])
         for i in range(len(self[column])):
             max_value = max(max_value, float(i))
             min_value = min(min_value, float(i))
