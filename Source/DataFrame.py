@@ -141,11 +141,36 @@ class DataFrame():
         for j in self.columns:
             self[j].pop(index)
 
+    def drop_duplicates(self):
+        header = self.columns
+        rows = []
+        for idx, val in enumerate(self.values[header[0]]):
+            row = []
+            row.append(val)
+            for other in header[1: len(header)]:
+                row.append(self.values[other][idx])
+            rows.append(row)
+
+        id_to_drop = []
+        for idx, val in enumerate(rows):
+            for i in range(idx + 1, len(rows)):
+                if val == rows[i]:
+                    id_to_drop.append(i)
+                    break
+        
+        id_to_drop.sort(reverse=True)
+        for col in header:
+            for idx in id_to_drop:
+                del self.values[col][idx]
+
+
+
 # script_path = path.realpath(__file__)
 # dir_path = path.dirname(script_path)
-# input_dir = path.join(dir_path, 'House_Prices')
-# input_path = path.join(input_dir, 'test.csv')
-# output_path = path.join(input_dir, 'test_out.csv')
+# input_dir = path.join(dir_path, 'test')
+# input_path = path.join(input_dir, 'input.csv')
+# output_path = path.join(input_dir, 'output.csv')
 # df = DataFrame.read_csv(input_path)
+# df.drop_duplicates()
 # df.to_csv(output_path)
 # print(df.mean('LotArea'))
