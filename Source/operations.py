@@ -12,7 +12,8 @@ args = parser.parse_args()
 
 data = df.DataFrame.read_csv(args.input_path)
 # Verify both columns have numeric data type
-if ()
+if data.type(arg.column1) != 'Numeric' or data.type(arg.column2) != 'Numeric':
+    arg.ArgumentTypeError('Invalid pair of columns. Both must have numeric data')
 # Parsing
 col1 = data[arg.column1]
 col2 = data[arg.column2]
