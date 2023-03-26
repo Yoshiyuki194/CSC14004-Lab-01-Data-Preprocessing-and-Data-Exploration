@@ -4,8 +4,8 @@ import DataFrame as df
 
 #Parser command line 
 parser = arg.ArgumentParser()
-parser.add_argument('input', type = str, help = "Path to dataset file")
-parser.add_argument('out', type = str, help = "Path to output file")
+parser.add_argument('input', type = str, help = "Path to the dataset file")
+parser.add_argument('out', type = str, help = "Path to the output file")
 parser.add_argument('column', help = "Column to fill NaN", type = lambda s: [item for item in s.split(',')])
 parser.add_argument('method', type = str, help = 'Method to normalize data')
 args = parser.parse_args()
@@ -25,8 +25,8 @@ for i in args.column:
             else:
                 arg.ArgumentTypeError('Data type of ' + i + ' must be numeric to use mean method')
         else:
-            arg.ArgumentTypeError('Method need to be one of min-max or z-score')
+            arg.ArgumentTypeError('Method needs to be min-max or z-score')
     else:
-        arg.ArgumentTypeError('Data contain NaN, please fill NaN before normalize')
+        arg.ArgumentTypeError('Data contain NaN, please fill NaN before normalization')
 
 data.to_csv(args.out)
