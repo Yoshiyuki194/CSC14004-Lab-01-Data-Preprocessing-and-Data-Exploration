@@ -109,8 +109,8 @@ class DataFrame():
         max_value = float(self[column][0])
         min_value = float(self[column][0])
         for i in range(len(self[column])):
-            max_value = max(max_value, float(i))
-            min_value = min(min_value, float(i))
+            max_value = max(max_value, float(self[column][i]))
+            min_value = min(min_value, float(self[column][i]))
         for i in range(len(self[column])):
             if self[column][i] != '':
                 self[column][i] = round((float(self[column][i]) - min_value) / (max_value - min_value), 3)
