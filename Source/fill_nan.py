@@ -4,8 +4,8 @@ import DataFrame as df
 
 #Parser command line 
 parser = arg.ArgumentParser()
-parser.add_argument('input', type = str, help = "Path to dataset file")
-parser.add_argument('out', type = str, help = "Path to output file")
+parser.add_argument('input', type = str, help = "Path to the dataset file")
+parser.add_argument('out', type = str, help = "Path to the output file")
 parser.add_argument('column', help = "Column to fill NaN", type = lambda s: [item for item in s.split(',')])
 parser.add_argument('method', type = str, help = 'Method to fill NaN')
 args = parser.parse_args()

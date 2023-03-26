@@ -4,8 +4,8 @@ import DataFrame as df
 
 #Parser command line 
 parser = arg.ArgumentParser()
-parser.add_argument('input', type = str, help = "Path to dataset file")
-parser.add_argument('out', type = str, help = "Path to result file")
+parser.add_argument('input', type = str, help = "Path to the dataset file")
+parser.add_argument('out', type = str, help = "Path to the result file")
 parser.add_argument('standard', type = float, help = "Maximun percentage of NaN value", default = 0.5)
 args = parser.parse_args()
 
